@@ -2,18 +2,18 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"market/controller"
+	"market/adapters/controllers/rest"
 	"market/domain/usecase"
 )
 
 func InitializeServer() *fiber.App {
 	app := fiber.New()
-	productController := controller.NewProductController(usecase.NewDummyProductUseCase())
+	productController := rest.NewProductController(usecase.NewDummyProductUseCase())
 	SetupRoutes(app, productController)
 	return app
 }
 
-func SetupRoutes(app *fiber.App, productController *controller.ProductController) {
+func SetupRoutes(app *fiber.App, productController *rest.ProductController) {
 	app.Post("/products", productController.CreateProduct)
 }
 
